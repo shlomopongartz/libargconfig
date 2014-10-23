@@ -1,0 +1,18 @@
+
+libargconfig is an old high level argument parsing code that is common
+to much of the code in this repository. It uses getopt internally but
+also automatically parses various types of arguments and generates the
+help texts. Code that uses it is much easier to maintain.
+
+This is a static library so it's only a build dependancy not a runtime
+dependancy. Use "./waf install" to install it into the system so other
+packages can find it.
+
+
+To build, run:
+
+  ./waf
+
+To install, run:
+
+  ./waf install
