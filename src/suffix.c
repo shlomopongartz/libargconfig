@@ -104,5 +104,6 @@ long long suffix_binary_parse(const char *value)
         }
     }
 
+    errno = EINVAL;
     return ret;
 }
