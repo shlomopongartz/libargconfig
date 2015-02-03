@@ -101,13 +101,13 @@ void argconfig_print_help(char *command, const char *program_desc,
             continue;
         }
 
-        strncat(buf, "-", bufsize);
-        strncat(buf, s->option, bufsize);
-        strncat(buf, " ", bufsize);
-        strncat(buf, s->meta, bufsize);
+        strcat(buf, "-");
+        strcat(buf, s->option);
+        strcat(buf, " ");
+        strcat(buf, s->meta);
 
         if (s->help == NULL) {
-            strncat(buf, ", ", bufsize);
+            strcat(buf, ", ");
             continue;
         }
 
@@ -229,7 +229,7 @@ int argconfig_parse(int argc, char *argv[], const char *program_desc,
               !strcmp(long_opts[option_index].name, "-help"))))
         {
             argconfig_print_help(argv[0], program_desc, options);
-            exit(0);
+            exit(1);
         } else if (c == 1) {
             argv[1+non_opt_args] = optarg;
             non_opt_args++;
@@ -543,12 +543,12 @@ void argconfig_print_subopt_help(const struct argconfig_sub_options * options,
             continue;
         }
 
-        strncat(buf, s->option, bufsize);
-        strncat(buf, "=", bufsize);
-        strncat(buf, s->meta, bufsize);
+        strcat(buf, s->option);
+        strcat(buf, "=");
+        strcat(buf, s->meta);
 
         if (s->help == NULL) {
-            strncat(buf, ", ", bufsize);
+            strcat(buf, ", ");
             continue;
         }
 
