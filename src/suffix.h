@@ -29,6 +29,7 @@
 
 const char *suffix_si_get(double *value);
 const char *suffix_binary_get(long long *value);
+const char *suffix_dbinary_get(double *value);
 long long suffix_binary_parse(const char *value);
 
 #endif

@@ -88,6 +88,19 @@ const char *suffix_binary_get(long long *value) {
     return "";
 }
 
+const char *suffix_dbinary_get(double *value) {
+    struct binary_suffix *s;
+
+    for (s = binary_suffixes; s->shift != 0; s++) {
+        if (llabs(*value) >= (1LL << s->shift)) {
+            *value = *value /  (1 << s->shift);
+            return s->suffix;
+        }
+    }
+
+    return "";
+}
+
 long long suffix_binary_parse(const char *value)
 {
     char *suffix;

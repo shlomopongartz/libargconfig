@@ -47,3 +47,18 @@ void report_transfer_rate(FILE *outf, struct timeval *start_time,
     fprintf(outf, "%6.2f%sB in %.1fs   %6.2f%sB/s",
             bytes_d, b_suffix, elapsed_time, throughput, t_suffix);
 }
+
+void report_transfer_bin_rate(FILE *outf, struct timeval *start_time,
+                              struct timeval *end_time, size_t bytes)
+{
+    double elapsed_time = timeval_to_secs(end_time) -
+        timeval_to_secs(start_time);
+    double bytes_d = bytes;
+    double throughput = bytes_d / elapsed_time;
+
+    const char *b_suffix = suffix_dbinary_get(&bytes_d);
+    const char *t_suffix = suffix_dbinary_get(&throughput);
+
+    fprintf(outf, "%6.2f%sB in %.1fs   %6.2f%sB/s",
+            bytes_d, b_suffix, elapsed_time, throughput, t_suffix);
+}
