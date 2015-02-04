@@ -117,6 +117,8 @@ long long suffix_binary_parse(const char *value)
         }
     }
 
-    errno = EINVAL;
+    if (suffix[0] != '\0')
+                errno = EINVAL;
+
     return ret;
 }
