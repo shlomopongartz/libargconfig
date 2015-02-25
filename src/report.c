@@ -33,19 +33,48 @@ static double timeval_to_secs(struct timeval *t)
     return  t->tv_sec + t->tv_usec / 1e6;
 }
 
-void report_transfer_rate(FILE *outf, struct timeval *start_time,
-                          struct timeval *end_time, size_t bytes)
+void report_transfer_rate_elapsed(FILE *outf, double elapsed_time,
+                                  size_t bytes)
 {
-    double elapsed_time = timeval_to_secs(end_time) -
-        timeval_to_secs(start_time);
     double bytes_d = bytes;
     double throughput = bytes_d / elapsed_time;
 
     const char *b_suffix = suffix_si_get(&bytes_d);
     const char *t_suffix = suffix_si_get(&throughput);
 
-    fprintf(outf, "%6.2f%sB in %.1fs   %6.2f%sB/s",
-            bytes_d, b_suffix, elapsed_time, throughput, t_suffix);
+    const char *e_suffix = " ";
+    if (elapsed_time < 1)
+        e_suffix = suffix_si_get(&elapsed_time);
+
+    fprintf(outf, "%6.2f%sB in %-6.1f%ss   %6.2f%sB/s",
+            bytes_d, b_suffix, elapsed_time, e_suffix, throughput,
+            t_suffix);
+}
+
+void report_transfer_rate(FILE *outf, struct timeval *start_time,
+                          struct timeval *end_time, size_t bytes)
+{
+    double elapsed_time = timeval_to_secs(end_time) -
+        timeval_to_secs(start_time);
+    report_transfer_rate_elapsed(outf, elapsed_time, bytes);
+}
+
+void report_transfer_bin_rate_elapsed(FILE *outf, double elapsed_time,
+                                      size_t bytes)
+{
+    double bytes_d = bytes;
+    double throughput = bytes_d / elapsed_time;
+
+    const char *b_suffix = suffix_dbinary_get(&bytes_d);
+    const char *t_suffix = suffix_dbinary_get(&throughput);
+
+    const char *e_suffix = " ";
+    if (elapsed_time < 1)
+        e_suffix = suffix_si_get(&elapsed_time);
+
+    fprintf(outf, "%6.2f%sB in %-6.1f%ss   %6.2f%sB/s",
+            bytes_d, b_suffix, elapsed_time, e_suffix,
+            throughput, t_suffix);
 }
 
 void report_transfer_bin_rate(FILE *outf, struct timeval *start_time,
@@ -53,12 +82,5 @@ void report_transfer_bin_rate(FILE *outf, struct timeval *start_time,
 {
     double elapsed_time = timeval_to_secs(end_time) -
         timeval_to_secs(start_time);
-    double bytes_d = bytes;
-    double throughput = bytes_d / elapsed_time;
-
-    const char *b_suffix = suffix_dbinary_get(&bytes_d);
-    const char *t_suffix = suffix_dbinary_get(&throughput);
-
-    fprintf(outf, "%6.2f%sB in %.1fs   %6.2f%sB/s",
-            bytes_d, b_suffix, elapsed_time, throughput, t_suffix);
+    report_transfer_bin_rate_elapsed(outf, elapsed_time, bytes);
 }
