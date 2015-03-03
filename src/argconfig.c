@@ -25,8 +25,8 @@
 //
 ////////////////////////////////////////////////////////////////////////
 
-#include "argconfig/argconfig.h"
-#include "argconfig/suffix.h"
+#include "argconfig.h"
+#include "suffix.h"
 
 #include <string.h>
 #include <getopt.h>
