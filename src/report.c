@@ -25,8 +25,8 @@
 //
 ////////////////////////////////////////////////////////////////////////
 
-#include "report.h"
-#include "suffix.h"
+#include "argconfig/report.h"
+#include "argconfig/suffix.h"
 
 static double timeval_to_secs(struct timeval *t)
 {

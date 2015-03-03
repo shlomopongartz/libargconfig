@@ -25,7 +25,7 @@
 //
 ////////////////////////////////////////////////////////////////////////
 
-#include "suffix.h"
+#include "argconfig/suffix.h"
 
 #include <stdlib.h>
 #include <ctype.h>
