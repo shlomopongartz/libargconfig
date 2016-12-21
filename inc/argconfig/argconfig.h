@@ -37,6 +37,10 @@
 #include <getopt.h>
 #include <stdarg.h>
 
+#ifndef COMPLETE_ENV
+#define COMPLETE_ENV "ARGCONFIG_COMPLETE"
+#endif
+
 enum {
 	optional_positional = 20,
 	required_positional = 21,
@@ -78,6 +82,7 @@ struct argconfig_options {
 	int (*custom_handler)(const char *optarg, void *value_addr,
 			      const struct argconfig_options *opt);
 	const char *force_default;
+	const char *complete;
 };
 
 #define MAX_HELP_FUNC 20
