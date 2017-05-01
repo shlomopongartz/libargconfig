@@ -31,15 +31,15 @@
 #include <stdio.h>
 #include <sys/time.h>
 
-void report_transfer_rate_elapsed(FILE *outf, double elapsed_time,
-                                  size_t bytes);
+void report_transfer_rate_elapsed(FILE * outf, double elapsed_time,
+				  size_t bytes);
 
-void report_transfer_rate(FILE *outf, struct timeval *start_time,
-                          struct timeval *end_time, size_t bytes);
+void report_transfer_rate(FILE * outf, struct timeval *start_time,
+			  struct timeval *end_time, size_t bytes);
 
-void report_transfer_bin_rate_elapsed(FILE *outf, double elapsed_time,
-                                      size_t bytes);
-void report_transfer_bin_rate(FILE *outf, struct timeval *start_time,
-                              struct timeval *end_time, size_t bytes);
+void report_transfer_bin_rate_elapsed(FILE * outf, double elapsed_time,
+				      size_t bytes);
+void report_transfer_bin_rate(FILE * outf, struct timeval *start_time,
+			      struct timeval *end_time, size_t bytes);
 
 #endif
