@@ -16,9 +16,9 @@ endif
 	$(Q)$(COMPILE.c) $< -o $@
 
 libargconfig.a: $(patsubst %.c, %.o, $(wildcard src/*.c))
-	@$(NQ) echo "  AR     $<"
+	@$(NQ) echo "  AR     $@"
 	$(Q)ar $(ARFLAGS) $@ $^
-	@$(NQ) echo "  RANLIB $<"
+	@$(NQ) echo "  RANLIB $@"
 	$(Q)ranlib $@
 
 clean:
