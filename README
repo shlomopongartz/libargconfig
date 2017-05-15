@@ -16,3 +16,7 @@ To build, run:
 To install, run:
 
   ./waf install
+
+Alternatively if you are using this as a submodule in a larger project
+just use the Makefile to build the static library and link that into
+your code at build time.
