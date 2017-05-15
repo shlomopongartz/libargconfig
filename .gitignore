@@ -1,3 +1,5 @@
+libargconfig.a
+*.o
 .lock*
 .waf*
 build
