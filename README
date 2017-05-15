@@ -20,3 +20,19 @@ To install, run:
 Alternatively if you are using this as a submodule in a larger project
 just use the Makefile to build the static library and link that into
 your code at build time.
+
+An example of how you might link libargconfig into another program's
+Makefile is to carry out the following. Create libargconfig as a
+submodule in that program. Add something like the following to the
+Makefile for the master repo:
+
+LIBARGCONFIGDIR=libargconfig
+
+CFLAGS += -I$(LIBARGCONFIGDIR)/inc
+
+$(LIBARGCONFIGDIR)/libargconfig.a:
+	@$(NQ) echo "  MAKE   $@"
+	$(Q)$(MAKE) -C $(LIBARGCONFIGDIR)
+
+and to than add $(LIBARGCONFIGDIR)/libargconfig.a as a dependency for
+the executable in the master program.
