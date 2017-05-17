@@ -1,6 +1,6 @@
 
 CPPFLAGS += -I inc/argconfig
-CFLAGS += -g -std=gnu99
+CFLAGS += -D_GNU_SOURCE -g -std=gnu99
 ARFLAGS = r
 
 ifneq ($(V), 1)
