@@ -27,11 +27,7 @@
 
 #include "report.h"
 #include "suffix.h"
-
-static double timeval_to_secs(struct timeval *t)
-{
-	return t->tv_sec + t->tv_usec / 1e6;
-}
+#include "timing.h"
 
 void report_transfer_rate_elapsed(FILE * outf, double elapsed_time,
 				  size_t bytes)
