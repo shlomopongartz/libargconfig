@@ -3,3 +3,4 @@ libargconfig.a
 .lock*
 .waf*
 build
+*~
