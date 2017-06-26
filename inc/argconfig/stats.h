@@ -32,17 +32,26 @@
 #include <math.h>
 #include <stdio.h>
 
+struct percentile {
+	size_t below;
+	size_t above;
+	unsigned long target;
+};
+
 struct stats {
-	unsigned long mean;
-	unsigned long var;
-	unsigned long min;
-	unsigned long max;
-	size_t        entries;
+	unsigned long     mean;
+	unsigned long     var;
+	unsigned long     min;
+	unsigned long     max;
+	size_t            entries;
+	struct percentile percentile;
 };
 
 struct stats STATS_INIT;
 
-unsigned long std(struct stats *thisstats);
-void strstats(char *str, struct stats *thisstats);
+unsigned long stats_std(struct stats *thisstats);
+void stats_strstats(char *str, struct stats *thisstats);
+void stats_process(struct stats *thisstats, unsigned long val);
+void stats_settarget(struct stats *thisstats, double target);
 
 #endif

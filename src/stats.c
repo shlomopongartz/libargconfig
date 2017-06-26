@@ -28,14 +28,15 @@
 #include "stats.h"
 
 struct stats STATS_INIT = {
-	.entries = 0,
-	.max     = 0,
-	.mean    = 0,
-	.min     = ULONG_MAX,
-	.var     = 0,
+	.entries    = 0,
+	.max        = 0,
+	.mean       = 0,
+	.min        = ULONG_MAX,
+	.var        = 0,
+	.percentile = {0, 0, 0},
 };
 
-unsigned long std(struct stats *thisstats)
+unsigned long stats_std(struct stats *thisstats)
 {
 
 	unsigned long ret;
@@ -48,10 +49,41 @@ unsigned long std(struct stats *thisstats)
 	return ret;
 }
 
-void strstats(char *str, struct stats *thisstats)
+void stats_strstats(char *str, struct stats *thisstats)
 {
-	sprintf(str,"stats: mean = %lu: std = %lu: min = %lu: max = %lu",
+	sprintf(str,"stats: mean = %lu: std = %lu: min = %lu: max = %lu: percentile (%2.1f%%) = %lu",
 		thisstats->mean / thisstats->entries,
-		std(thisstats),
-		thisstats->min, thisstats->max);
+		stats_std(thisstats),
+		thisstats->min, thisstats->max,
+		100*(double)(thisstats->percentile.below) /
+		(thisstats->percentile.below + thisstats->percentile.above),
+		thisstats->percentile.target);
+}
+
+void stats_process(struct stats *thisstats, unsigned long val)
+{
+	if (val < thisstats->min)
+		thisstats->min = val;
+	if (val > thisstats->max)
+		thisstats->max = val;
+	thisstats->entries++;
+	thisstats->mean += val;
+	thisstats->var += (val * val);
+
+	if (!thisstats->percentile.target)
+		return;
+
+	struct percentile *this = &thisstats->percentile;
+
+	if (val > this->target)
+		this->above++;
+	if (val < this->target)
+		this->below++;
+}
+
+void stats_settarget(struct stats *thisstats, double target)
+{
+	thisstats->percentile.target = target;
+	thisstats->percentile.above = 0;
+	thisstats->percentile.below = 0;
 }
