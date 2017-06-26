@@ -27,6 +27,14 @@
 
 #include "stats.h"
 
+struct stats STATS_INIT = {
+	.entries = 0,
+	.max     = 0,
+	.mean    = 0,
+	.min     = ULONG_MAX,
+	.var     = 0,
+};
+
 unsigned long std(struct stats *thisstats)
 {
 
@@ -40,9 +48,9 @@ unsigned long std(struct stats *thisstats)
 	return ret;
 }
 
-void printstats(struct stats *thisstats)
+void strstats(char *str, struct stats *thisstats)
 {
-	fprintf(stdout,"stats: mean = %lu: std = %lu: min = %lu: max = %lu\n",
+	sprintf(str,"stats: mean = %lu: std = %lu: min = %lu: max = %lu",
 		thisstats->mean / thisstats->entries,
 		std(thisstats),
 		thisstats->min, thisstats->max);

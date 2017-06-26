@@ -28,6 +28,7 @@
 #ifndef __ARGCONFIG_STATS_H__
 #define __ARGCONFIG_STATS_H__
 
+#include <limits.h>
 #include <math.h>
 #include <stdio.h>
 
@@ -39,7 +40,9 @@ struct stats {
 	size_t        entries;
 };
 
+struct stats STATS_INIT;
+
 unsigned long std(struct stats *thisstats);
-void printstats(struct stats *thisstats);
+void strstats(char *str, struct stats *thisstats);
 
 #endif
