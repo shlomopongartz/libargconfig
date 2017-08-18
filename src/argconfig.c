@@ -106,9 +106,12 @@ static int is_file_option(const struct argconfig_options * s)
 	case CFG_FD_RD:
 	case CFG_FD_WR:
 	case CFG_FD_RDWR:
+	case CFG_FD_RDWR_NC:
 	case CFG_FD_RD_DIRECT:
 	case CFG_FD_WR_DIRECT:
+	case CFG_FD_WR_DIRECT_NC:
 	case CFG_FD_RDWR_DIRECT:
+	case CFG_FD_RDWR_DIRECT_NC:
 		return 1;
 	default:
 		return 0;
@@ -568,9 +571,12 @@ static int cfg_fd_handler(const char *optarg, void *value_addr,
 	case CFG_FD_WR: flags = O_CREAT | O_TRUNC | O_WRONLY; break;
 	case CFG_FD_RD: flags = O_RDONLY; break;
 	case CFG_FD_RDWR: flags = O_CREAT | O_TRUNC | O_RDWR; break;
+	case CFG_FD_RDWR_NC: flags = O_TRUNC | O_RDWR; break;
 	case CFG_FD_WR_DIRECT: flags = O_CREAT | O_TRUNC | O_WRONLY | O_DIRECT; break;
+	case CFG_FD_WR_DIRECT_NC: flags = O_TRUNC | O_WRONLY | O_DIRECT; break;
 	case CFG_FD_RD_DIRECT: flags = O_RDONLY | O_DIRECT; break;
 	case CFG_FD_RDWR_DIRECT: flags = O_CREAT | O_TRUNC | O_RDWR | O_DIRECT; break;
+	case CFG_FD_RDWR_DIRECT_NC: flags = O_TRUNC | O_RDWR | O_DIRECT; break;
 	default: return 1;
 	}
 
@@ -715,9 +721,12 @@ static type_handler cfg_type_handlers[_CFG_MAX_TYPES] = {
 	[CFG_FD_WR] = cfg_fd_handler,
 	[CFG_FD_RD] = cfg_fd_handler,
 	[CFG_FD_RDWR] = cfg_fd_handler,
+	[CFG_FD_RDWR_NC] = cfg_fd_handler,
 	[CFG_FD_WR_DIRECT] = cfg_fd_handler,
+	[CFG_FD_WR_DIRECT_NC] = cfg_fd_handler,
 	[CFG_FD_RD_DIRECT] = cfg_fd_handler,
 	[CFG_FD_RDWR_DIRECT] = cfg_fd_handler,
+	[CFG_FD_RDWR_DIRECT_NC] = cfg_fd_handler,
 	[CFG_CHOICES] = cfg_choices_handler,
 	[CFG_MULT_CHOICES] = cfg_choices_handler,
 	[CFG_MASK] = cfg_mask_handler,
