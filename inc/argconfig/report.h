@@ -42,4 +42,7 @@ void report_transfer_bin_rate_elapsed(FILE * outf, double elapsed_time,
 void report_transfer_bin_rate(FILE * outf, struct timeval *start_time,
 			      struct timeval *end_time, size_t bytes);
 
+void report_usage_per_4k(FILE * outf, struct timeval *start_time,
+			 struct timeval *end_time, size_t bytes);
+
 #endif

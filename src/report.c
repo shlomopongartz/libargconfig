@@ -80,3 +80,13 @@ void report_transfer_bin_rate(FILE * outf, struct timeval *start_time,
 	    timeval_to_secs(start_time);
 	report_transfer_bin_rate_elapsed(outf, elapsed_time, bytes);
 }
+
+void report_usage_per_4k(FILE * outf, struct timeval *start_time,
+			 struct timeval *end_time, size_t bytes)
+{
+	double elapsed_time = timeval_to_secs(end_time) -
+	    timeval_to_secs(start_time);
+	double blocks = bytes / 4096.0;
+
+	fprintf(outf, "%-6.1f", elapsed_time / blocks);
+}
